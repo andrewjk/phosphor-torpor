@@ -1,30 +1,30 @@
 <img src="./meta/phosphor-mark-tight-yellow.png" width="128" align="right" />
 
-# phosphor-svelte
+# phosphor-torpor
 
 Phosphor is a flexible icon family for interfaces, diagrams, presentations — whatever, really. More icons at [phosphoricons.com](https://phosphoricons.com).
 
-[![npm](https://img.shields.io/npm/v/phosphor-svelte)](https://npm.im/phosphor-svelte)
+[![npm](https://img.shields.io/npm/v/phosphor-torpor)](https://npm.im/phosphor-torpor)
 
 ## Installation
 
 ```bash
-yarn add --dev phosphor-svelte
+yarn add --dev phosphor-torpor
 ```
 
 or
 
 ```bash
-npm install --save-dev phosphor-svelte
+npm install --save-dev phosphor-torpor
 ```
 
 ## Usage
 
 ```html
 <script>
-  import { Horse, Heart } from "phosphor-svelte";
+  import { Horse, Heart } from "phosphor-torpor";
   // or
-  import Cube from "phosphor-svelte/lib/Cube"; // Recommended for faster compiling
+  import Cube from "phosphor-torpor/lib/Cube"; // Recommended for faster compiling
 </script>
 
 <Horse />
@@ -33,7 +33,7 @@ npm install --save-dev phosphor-svelte
 ```
 
 > [!WARNING]
-> You might encounter slower compilation when importing components using named import (`import { X } from "phosphor-svelte"`).
+> You might encounter slower compilation when importing components using named import (`import { X } from "phosphor-torpor"`).
 
 ### Props
 
@@ -48,13 +48,13 @@ Apply default style to all icons. Create an IconContext at the root of the app (
 
 ```html
 <script>
-  import IconContext from "phosphor-svelte/lib/IconContext";
+  import IconContext from "phosphor-torpor/lib/IconContext";
   // or
-  // import { IconContext } from "phosphor-svelte";
+  // import { IconContext } from "phosphor-torpor";
 
-  import Cube from "phosphor-svelte/lib/Cube";
-  import Horse from "phosphor-svelte/lib/Horse";
-  import Heart from "phosphor-svelte/lib/Heart";
+  import Cube from "phosphor-torpor/lib/Cube";
+  import Horse from "phosphor-torpor/lib/Horse";
+  import Heart from "phosphor-torpor/lib/Heart";
 </script>
 
 <IconContext
@@ -101,10 +101,10 @@ A Vite plugin that transforms named import to default import. This will speed up
 
 ```diff
 <script>
--  import { Cube, Heart, Horse } from "phosphor-svelte";
-+  import Cube from "phosphor-svelte/lib/Cube";
-+  import Heart from "phosphor-svelte/lib/Heart";
-+  import Horse from "phosphor-svelte/lib/Horse";
+-  import { Cube, Heart, Horse } from "phosphor-torpor";
++  import Cube from "phosphor-torpor/lib/Cube";
++  import Heart from "phosphor-torpor/lib/Heart";
++  import Horse from "phosphor-torpor/lib/Horse";
 </script>
 ```
 
@@ -115,12 +115,12 @@ Add the plugin into your vite config file.
 ```javascript
 // vite.config.ts
 
-import { sveltekit } from "@sveltejs/kit/vite";
+import { torporkit } from "@torporjs/kit/vite";
 import { defineConfig } from "vite";
-import { sveltePhosphorOptimize } from "phosphor-svelte/vite";
+import { torporPhosphorOptimize } from "phosphor-torpor/vite";
 
 export default defineConfig({
-  plugins: [sveltePhosphorOptimize(), sveltekit()],
+  plugins: [torporPhosphorOptimize(), torporkit()],
 });
 ```
 
@@ -131,4 +131,3 @@ MIT © [Phosphor Icons](https://github.com/phosphor-icons)
 ## Knowledge
 
 - [Phosphor React](https://github.com/phosphor-icons/phosphor-react/)
-- [Carbon Icons Svelte](https://github.com/IBM/carbon-icons-svelte/)

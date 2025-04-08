@@ -1,10 +1,10 @@
-import type { Component } from "svelte";
-import type { IconContextProps } from "./shared.d.ts";
+import type { Component } from "@torpor/view";
+import type { IconContextProps } from "./shared";
 
 /**
  *
  * @example
- * ```svelte
+ * ```torpor
  * <IconContext
  *   values={{
  *     color: "white",

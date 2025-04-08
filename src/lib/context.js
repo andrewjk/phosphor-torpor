@@ -1,19 +1,15 @@
-import { getContext, hasContext, setContext } from "svelte";
+//import { getContext, hasContext, setContext } from "svelte";
 
-let contextKey = Symbol("phosphor-svelte");
+let contextKey = Symbol("phosphor-torpor");
 
-export function setIconContext(value) {
-  setContext(contextKey, value);
+export function setIconContext($context, value) {
+  $context[contextKey] = value;
 }
 
 /**
  *
  * @returns {import("./shared").IconContextProps["values"]}
  */
-export function getIconContext() {
-  if (hasContext(contextKey)) {
-    return getContext(contextKey);
-  }
-
-  return {};
+export function getIconContext($context) {
+  return ($context && $context[contextKey]) ?? {};
 }

@@ -1,11 +1,11 @@
 // @vitest-environment jsdom
 
-import { render, screen } from "@testing-library/svelte";
-import { createRawSnippet } from "svelte";
+import { mount } from "@torpor/view";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import Circle from "../lib/Circle.svelte";
-import Rectangle from "../lib/Rectangle.svelte";
-import ContextTest from "./__fixtures__/ContextTest.svelte";
+import { getByRole } from "@testing-library/dom";
+import Circle from "../lib/Circle.torp";
+import Rectangle from "../lib/Rectangle.torp";
+import ContextTest from "./__fixtures__/ContextTest.torp";
 
 describe("component", () => {
   afterEach(() => {
@@ -13,20 +13,24 @@ describe("component", () => {
   });
 
   it("should render", () => {
-    render(Circle);
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    mount(container, Circle);
 
-    const svg = screen.getByRole("img");
+    const svg = getByRole(container, "img");
     expect(svg).toBeInTheDocument();
   });
 
   it("should accept props", async () => {
-    render(Circle, {
-      fill: "black",
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    mount(container, Circle, {
+      color: "black",
       size: "5em",
       mirrored: true,
     });
 
-    const icon = screen.getByRole("img");
+    const icon = getByRole(container, "img");
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute("fill", "black");
     expect(icon).toHaveAttribute("width", "5em");
@@ -38,9 +42,11 @@ describe("component", () => {
   it("should render weight properly", () => {
     const boldPath = `<path d="M216,36H40A20,20,0,0,0,20,56V200a20,20,0,0,0,20,20H216a20,20,0,0,0,20-20V56A20,20,0,0,0,216,36Zm-4,160H44V60H212Z"/>`;
 
-    render(Rectangle, { weight: "bold" });
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    mount(container, Rectangle, { weight: "bold" });
 
-    const icon = screen.getByRole("img");
+    const icon = getByRole(container, "img");
 
     expect(icon).toContainHTML(boldPath);
   });
@@ -48,34 +54,42 @@ describe("component", () => {
   it("should log error for unsupported weight", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
 
-    render(Circle, {
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    mount(container, Circle, {
       weight: "aaa",
     });
 
-    const icon = screen.getByRole("img");
+    const icon = getByRole(container, "img");
 
     expect(icon).toBeInTheDocument();
     expect(console.error).toHaveBeenCalled();
   });
 
   it("should render slot", () => {
-    render(Circle, {
-      children: createRawSnippet(() => ({
-        render: () => `<title>the circle</title>`,
-      })),
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    mount(container, Circle, undefined, {
+      _: (parent, anchor) => {
+        const title = document.createElement("title");
+        title.appendChild(document.createTextNode("the circle"));
+        parent.insertBefore(title, anchor);
+      },
     });
 
-    const icon = screen.getByRole("img");
+    const icon = getByRole(container, "img");
 
     expect(icon).toContainHTML(`<title>the circle</title>`);
   });
 
   it("should accept props from context", () => {
-    render(ContextTest, {
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    mount(container, ContextTest, {
       values: { color: "red" },
     });
 
-    let icon = screen.getByRole("img");
+    let icon = getByRole(container, "img");
 
     expect(icon).toBeInTheDocument();
     expect(icon).toHaveAttribute("fill", "red");

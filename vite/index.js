@@ -1,7 +1,7 @@
 import MagicString from "magic-string";
 import { walk } from "estree-walker";
 
-const EXCLUDE_RE = /\/node_modules\/|\/\.svelte-kit\/|virtual:__sveltekit/;
+const EXCLUDE_RE = /\/node_modules\/|\/dist\/|virtual:__dist/;
 const CSS_RE = /\.(css|less|sass|scss|styl|stylus|pcss|postcss|sss)(?:$|\?)/;
 
 function parseId(id) {
@@ -23,9 +23,9 @@ function parseId(id) {
  *
  * @returns {import("vite").Plugin}
  */
-export function sveltePhosphorOptimize() {
+export function torporPhosphorOptimize() {
   return {
-    name: "vite-plugin-svelte-phosphor-optimize",
+    name: "vite-plugin-torpor-phosphor-optimize",
     transform(code, id) {
       const { query, filename } = parseId(id);
       if (
@@ -42,13 +42,13 @@ export function sveltePhosphorOptimize() {
         enter(node) {
           if (
             node.type === "ImportDeclaration" &&
-            node.source.value === "phosphor-svelte"
+            node.source.value === "phosphor-torpor"
           ) {
             let content = "";
 
             for (const specifier of node.specifiers) {
               if (specifier.type === "ImportSpecifier") {
-                const fragment = `import ${specifier.local.name} from "phosphor-svelte/lib/${specifier.imported.name}";\n`;
+                const fragment = `import ${specifier.local.name} from "phosphor-torpor/lib/${specifier.imported.name}";\n`;
                 if (fragment) content += fragment;
               }
             }

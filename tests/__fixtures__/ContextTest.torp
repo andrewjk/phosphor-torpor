@@ -1,0 +1,12 @@
+import Circle from "../../lib/Circle.torp";
+import IconContext from "../../lib/IconContext.torp";
+
+export default function ContextTest() {
+  let { values } = $props;
+
+  @render {
+    <IconContext {values}>
+      <Circle />
+    </IconContext>
+  }
+}

@@ -1,0 +1,12 @@
+import { setIconContext } from "./context";
+
+export default function IconContext() {
+  let { values } = $props;
+
+  $context ??= {};
+  setIconContext($context, values);
+
+  @render {
+    <:slot />
+  }
+}

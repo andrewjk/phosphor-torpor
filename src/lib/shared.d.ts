@@ -1,5 +1,4 @@
-import type { Snippet } from "svelte";
-import type { SVGAttributes } from "svelte/elements";
+//import type { SVGAttributes } from "svelte/elements";
 
 export type IconWeight =
   | "bold"
@@ -33,10 +32,9 @@ export interface IconBaseProps {
 }
 
 export interface IconComponentProps
-  extends Omit<SVGAttributes<SVGSVGElement>, keyof IconBaseProps>,
-    IconBaseProps {}
+  //extends Omit<SVGAttributes<SVGSVGElement>, keyof IconBaseProps>,
+  extends IconBaseProps {}
 
 export interface IconContextProps {
   values: IconComponentProps;
-  children?: Snippet;
 }

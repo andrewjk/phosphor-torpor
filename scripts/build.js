@@ -70,11 +70,11 @@ export async function generateComponents(icon, weightVariants) {
     let componentName = generateIconName(iconName);
 
     await fs.writeFile(
-      path.join(outputDir, `${componentName}.svelte`),
+      path.join(outputDir, `${componentName}.torp`),
       componentString
     );
     await fs.writeFile(
-      path.join(outputDir, `${componentName}.svelte.d.ts`),
+      path.join(outputDir, `${componentName}.torp.d.ts`),
       componentDefinitionTempalte(componentName)
     );
 

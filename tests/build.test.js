@@ -36,8 +36,8 @@ beforeAll(async (ctx) => {
       },
       "/tmp/src/lib": {
         "context.js": "",
-        "IconContext.svelte": "",
-        "IconContext.svelte.d.ts": "",
+        "IconContext.torp": "",
+        "IconContext.torp.d.ts": "",
         "shared.d.ts": "",
       },
     },
@@ -59,12 +59,12 @@ describe("scripts/build", () => {
     const files = await vol.promises.readdir("/tmp/lib");
     expect(files).toEqual(
       expect.arrayContaining([
-        "Circle.svelte",
-        "Circle.svelte.d.ts",
-        "IconContext.svelte",
-        "IconContext.svelte.d.ts",
-        "Minus.svelte",
-        "Minus.svelte.d.ts",
+        "Circle.torp",
+        "Circle.torp.d.ts",
+        "IconContext.torp",
+        "IconContext.torp.d.ts",
+        "Minus.torp",
+        "Minus.torp.d.ts",
         "context.js",
         "index.d.ts",
         "index.js",

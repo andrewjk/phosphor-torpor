@@ -1,3 +1,3 @@
 import { Plugin } from "vite";
 
-export function sveltePhosphorOptimize(): Plugin<any>;
+export function torporPhosphorOptimize(): Plugin<any>;

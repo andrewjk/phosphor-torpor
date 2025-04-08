@@ -1,65 +1,68 @@
+// TODO: weight, color, size and mirrored were $derived
+
 /**
  *
  * @param {{ weight: string, svgPath: string }[]} iconWeights
  * @returns
  */
 export function componentTemplate(iconWeights) {
-  let componentString = `<!-- GENERATED FILE -->
-<script lang="ts">
-  import type { IconComponentProps } from "./shared.d.ts";
-  import { getIconContext } from "./context";
+  let componentString = `/*-- GENERATED FILE --*/
+import type { IconComponentProps } from "./shared.d.ts";
+import { getIconContext } from "./context";
 
-  const ctx = getIconContext();
+export default function Icon() {
+  const ctx = getIconContext($context);
 
-  let { children, ...props }: IconComponentProps = $props();
+  //let { children, ...props }: IconComponentProps = $props ?? {};
+  let props = $props ?? {};
 
-  let weight = $derived(props.weight ?? ctx.weight ?? "regular");
-  let color = $derived(props.color ?? ctx.color ?? "currentColor");
-  let size = $derived(props.size ?? ctx.size ?? "1em");
-  let mirrored = $derived(props.mirrored ?? ctx.mirrored ?? false);
+  let weight = (props.weight ?? ctx.weight ?? "regular");
+  let color = (props.color ?? ctx.color ?? "currentColor");
+  let size = (props.size ?? ctx.size ?? "1em");
+  let mirrored = (props.mirrored ?? ctx.mirrored ?? false);
 
   function svgAttr(obj: IconComponentProps) {
     let { weight, color, size, mirrored, ...attrs } = obj;
     return attrs;
   }
-</script>
 
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  role="img"
-  width={size}
-  height={size}
-  fill={color}
-  transform={mirrored ? "scale(-1, 1)" : undefined}
-  viewBox="0 0 256 256"
-  {...svgAttr(ctx)}
-  {...svgAttr(props)}
->
-  {#if children}
-    {@render children()}
-  {/if}
-  <rect width="256" height="256" fill="none" />
+  @render {
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      width={size}
+      height={size}
+      fill={color}
+      transform={mirrored ? "scale(-1, 1)" : undefined}
+      viewBox="0 0 256 256"
+      @/* {...svgAttr(ctx)}
+      {...svgAttr(props)} */
+    >
+      <:slot />
+      <rect width="256" height="256" fill="none" />
 ${iconWeights
   .map(({ weight, svgPath }, i) => {
     const cond =
       i === 0
-        ? `{#if weight === "${weight}"}`
-        : `{:else if weight === "${weight}"}`;
-    return `  ${cond}\n    ${svgPath.trim()}\n`;
+        ? `@if (weight === "${weight}") {`
+        : `} else if (weight === "${weight}") {`;
+    return `      ${cond}\n        ${svgPath.trim()}\n`;
   })
-  .join("")}  {:else}
-    {(console.error('Unsupported icon weight. Choose from "thin", "light", "regular", "bold", "fill", or "duotone".'), "")}
-  {/if}
-</svg>`;
+  .join("")}      } else {
+        @console.error('Unsupported icon weight. Choose from "thin", "light", "regular", "bold", "fill", or "duotone".')
+      }
+    </svg>
+  }
+}`;
 
   return componentString;
 }
 
 export function definitionsTemplate(components) {
-  let str = `export { default as IconContext } from "./IconContext.svelte";\n`;
+  let str = `export { default as IconContext } from "./IconContext.torp";\n`;
 
   components.forEach((cmp) => {
-    str += `export { default as ${cmp.name} } from "./${cmp.name}.svelte";\n`;
+    str += `export { default as ${cmp.name} } from "./${cmp.name}.torp";\n`;
   });
 
   str += `export type * from "./shared.d.ts";\n`;
@@ -68,13 +71,13 @@ export function definitionsTemplate(components) {
 }
 
 export function componentDefinitionTempalte(componentName) {
-  return `import type { Component } from "svelte";
+  return `import type { Component } from "@torpor/view";
 import type { IconComponentProps } from "./shared.d.ts";
 
 /**
  *
  * @example
- * \`\`\`svelte
+ * \`\`\`torpor
  * <${componentName} color="white" weight="fill" size="20px" mirrored={false} />
  * \`\`\`
  *
@@ -89,10 +92,10 @@ export default ${componentName};\n`;
 }
 
 export function moduleTemplate(components) {
-  let str = "export { default as IconContext } from './IconContext.svelte';\n";
+  let str = "export { default as IconContext } from './IconContext.torp';\n";
 
   components.forEach((cmp) => {
-    str += `export { default as ${cmp.name} } from './${cmp.name}.svelte';\n`;
+    str += `export { default as ${cmp.name} } from './${cmp.name}.torp';\n`;
   });
 
   return str;
