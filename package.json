@@ -11,8 +11,9 @@
       "torpor": "./lib/index.js"
     },
     "./lib/*": {
-      "types": "./lib/*.torpor.d.ts",
-      "torpor": "./lib/*.torpor"
+      "types": "./lib/*.torp.d.ts",
+      "import": "./lib/*.torp",
+      "torpor": "./lib/*.torp"
     },
     "./vite": {
       "types": "./vite/index.d.ts",
