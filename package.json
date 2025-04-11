@@ -1,6 +1,6 @@
 {
   "name": "phosphor-torpor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A clean and friendly icon family for Torpor",
   "torpor": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -67,8 +67,8 @@
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
-    "@torpor/unplugin": "^0.1.2",
-    "@torpor/view": "^0.0.9",
+    "@torpor/unplugin": "^0.1.4",
+    "@torpor/view": "^0.0.10",
     "fs-extra": "^11.3.0",
     "html-minifier-terser": "^7.2.0",
     "jsdom": "^26.0.0",
